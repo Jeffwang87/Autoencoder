@@ -93,7 +93,7 @@ for i in range(10):
     plt.imshow(origin[i])
     plt.gray()
     # display reconstructed
-    ax = plt.subplot(2, 20, i + 1+ 20)
+    ax = plt.subplot(2, 20, i + 1 + 20)
     plt.imshow(predicted[i].reshape(28, 28))
     plt.gray()
 plt.show()
