@@ -1,9 +1,9 @@
-# Autoencoder with a random activition function
 from __future__ import absolute_import, division, print_function
 import sys
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
 import numpy as np
+import matplotlib.pyplot as plt
 from tensorflow.python.framework import ops
 input_size = 784
 hidden_size = 128
@@ -64,9 +64,11 @@ def tf_d_suplu(x,name=None):
 
 
 (training_features, _), _ = tf.keras.datasets.mnist.load_data()
-training_features = training_features / np.max(training_features)
+training = training_features / np.max(training_features)
+training_features = training[0:50000]
 training_features = training_features.reshape(training_features.shape[0],
                                     training_features.shape[1]*training_features.shape[2]).astype(np.float32)
+testing = training[50000:]
 
 inputs = tf.keras.Input(shape=(input_size,))
 # Ecoder
@@ -81,3 +83,17 @@ output = tf_suplu(tf.keras.layers.Dense(input_size)(h_2))
 autoencoder = tf.keras.Model(inputs=inputs, outputs=output)
 autoencoder.compile(optimizer='adam', loss='mse')
 autoencoder.fit(training_features, training_features, batch_size=128, epochs=5)
+origin = testing
+testing = testing.reshape(testing.shape[0], testing.shape[1]*testing.shape[2]).astype(np.float32)
+predicted = autoencoder.predict(testing)
+plt.figure(figsize=(40, 4))
+for i in range(10):
+    # display original
+    ax = plt.subplot(2, 20, i + 1)
+    plt.imshow(origin[i])
+    plt.gray()
+    # display reconstructed
+    ax = plt.subplot(2, 20, i + 1+ 20)
+    plt.imshow(predicted[i].reshape(28, 28))
+    plt.gray()
+plt.show()
