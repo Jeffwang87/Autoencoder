@@ -11,5 +11,6 @@ Testing autoencoder model and design your own activation function in the file to
 python3 auto_testing.py
 ```
 ## Example
+Following are the results of the autoencoder. The top row of images are original images and the bottom row of images are the reproduced images with a different activation function from the activation function used in training
 ![Screenshot](Screen_Shot_1.png)
-![Screenshot](Screen_Shot_2.png)
+
