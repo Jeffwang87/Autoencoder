@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tensorflow.python.framework import ops
 
+# set your own activation function here
 def suplu(x):
     if x < 0:
         return 0
@@ -16,6 +17,7 @@ def suplu(x):
         return x**3
 np_suplu = np.vectorize(suplu)
 
+# set the derivative of your own activation function here
 def d_suplu(x):
     if x < 0:
         return 0
@@ -70,8 +72,8 @@ def create_model(input_size, hidden_size, code_size):
     h = tf.keras.layers.Dense(code_size, activation=tf.nn.relu)(h_1)
     #Decoder
     h_2 = tf.keras.layers.Dense(hidden_size, activation=tf.nn.relu)(h)
-    output = tf.keras.layers.Dense(input_size, activation=tf.nn.sigmoid)(h_2)
-    #output = tf_suplu(tf.keras.layers.Dense(input_size)(h_2))
+    #output = tf.keras.layers.Dense(input_size, activation=tf.nn.sigmoid)(h_2)
+    output = tf_suplu(tf.keras.layers.Dense(input_size)(h_2))
     model = tf.keras.Model(inputs=inputs, outputs=output)
     model.compile(optimizer='adam', loss='mse')
     return model
