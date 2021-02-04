@@ -1,3 +1,9 @@
+"""
+This is the code to train the autoencoder with ReLU function
+authors: Jianxin Wang
+
+"""
+
 from __future__ import absolute_import, division, print_function
 import sys
 import os
@@ -8,23 +14,6 @@ import matplotlib.pyplot as plt
 from tensorflow.python.framework import ops
 
 
-def suplu(x):
-    if x < 0:
-        return 0
-    elif x >= 0 and x <1:
-        return x**2
-    else:
-        return x**3
-np_suplu = np.vectorize(suplu)
-
-def d_suplu(x):
-    if x < 0:
-        return 0
-    elif x >= 0 and x <1:
-        return 2*x
-    else:
-        return 3*x**2
-np_d_suplu = np.vectorize(d_suplu)
 
 def py_func(func, inp, Tout, stateful=True, name=None, grad=None):
     # Need to generate a unique name to avoid duplicates:
